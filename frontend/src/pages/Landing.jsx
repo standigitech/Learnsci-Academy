@@ -1,0 +1,15 @@
+import { Link } from "react-router-dom";
+import { ArrowRight, Check, BookOpen, Brain, FlaskConical, Atom, Dna } from "lucide-react";
+import Logo from "../components/Logo";
+export default function Landing() {
+  return <div className="landing">
+    <header className="landing-nav"><Logo/><nav><a href="#subjects">Subjects</a><a href="#how">How it works</a><a href="#plans">Plans</a></nav><div><Link to="/login" className="btn ghost">Login</Link><Link to="/register" className="btn primary">Start learning</Link></div></header>
+    <section className="hero"><div><h1>Learn. Understand. <span>Excel.</span></h1><p>A structured digital learning platform for Mathematics, Chemistry, Physics and Biology — built for serious learners.</p><div className="hero-actions"><Link className="btn primary large" to="/register">Create your account <ArrowRight size={18}/></Link><Link className="text-link" to="/subscribe">View plans</Link></div><div className="hero-proof"><Check/> Premium lessons, quizzes, exams, live classes and certificates.</div></div><div className="hero-visual"><div className="hero-orb"></div><div className="science-card"><Atom size={34}/><strong>LearnSci</strong><span>Knowledge → Practice → Progress</span></div></div></section>
+    <section id="subjects" className="section"><div className="section-head"><div><h2>Explore four science paths</h2><p>Structured topics, lessons and practice designed for progressive mastery.</p></div></div><div className="subject-grid">{[
+      ["Mathematics","Blue",Brain],["Chemistry","Purple",FlaskConical],["Physics","Orange",Atom],["Biology","Green",Dna]
+    ].map(([name,c,Icon])=><div className={`subject-card ${c.toLowerCase()}`} key={name}><Icon/><h3>{name}</h3><p>Topics, worked examples, practice and revision.</p><Link to="/register">Explore <ArrowRight size={16}/></Link></div>)}</div></section>
+    <section id="how" className="section split"><div><h2>One clear journey from account to mastery</h2><p>Create your account, select a plan, complete payment and unlock the full platform. Your subscription controls premium access across the API and UI.</p></div><div className="steps">{["Create account","Choose plan","Pay securely","Learn & practice"].map((s,i)=><div className="step" key={s}><b>0{i+1}</b><span>{s}</span></div>)}</div></section>
+    <section id="plans" className="section pricing"><div><h2>Simple plans</h2><p>Pay monthly or save with annual access.</p></div><div className="plan-mini"><div><strong>KSh 499</strong><span>/ month</span></div><ul><li>Full platform access</li><li>Quizzes & exams</li><li>Live classes</li><li>Certificates</li></ul><Link to="/register" className="btn primary">Choose monthly</Link></div><div className="plan-mini featured"><div><strong>KSh 4,999</strong><span>/ year</span></div><ul><li>Full platform access</li><li>All subjects & topics</li><li>Live classes</li><li>Certificates</li></ul><Link to="/register" className="btn secondary">Choose annual</Link></div></section>
+    <footer><Logo/><span>© 2026 LearnSci. Learn. Understand. Excel.</span></footer>
+  </div>;
+}

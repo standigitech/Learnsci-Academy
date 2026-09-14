@@ -1,0 +1,3 @@
+import { useEffect,useState } from "react";
+import { api } from "../services/api";
+export default function Articles(){const [items,setItems]=useState([]);useEffect(()=>{api.get("/articles").then(r=>setItems(r.data.articles));},[]);return <main className="page"><div className="page-title"><h1>Articles & Blog</h1><p>Study tips, science explainers and education insights.</p></div><div className="article-grid">{items.map(a=><article className="article-card" key={a.id}><div className="article-image">{a.subjectName?.[0]||"L"}</div><small>{a.subjectName||"Education"} · {new Date(a.publishedAt).toLocaleDateString()}</small><h2>{a.title}</h2><p>{a.excerpt}</p><a href={`/articles/${a.slug}`}>Read more →</a></article>)}</div></main>}

@@ -1,0 +1,5 @@
+import { useParams } from "react-router-dom";
+import { api } from "../services/api";
+import { useEffect,useState } from "react";
+import Paywall from "../components/Paywall";
+export default function Lesson(){const {id}=useParams();const [data,setData]=useState(null);useEffect(()=>{api.get(`/lessons/${id}`).then(r=>setData(r.data)).catch(e=>setData({error:e.response?.data?.message||"Unable to load lesson"}));},[id]);if(!data)return <main className="page">Loading lesson…</main>;if(data.error)return <main className="page"><Paywall text={data.error}/></main>;return <main className="page lesson-page"><div className="breadcrumbs">{data.subject} / {data.topic}</div><h1>{data.lesson.title}</h1><p className="lesson-meta">{data.lesson.durationMinutes} minutes · {data.lesson.level}</p><article className="lesson-content"><div dangerouslySetInnerHTML={{__html:data.lesson.contentHtml}}/><h2>Lesson resources</h2><div className="resource-list">{data.resources.map(r=><a key={r.id} href={r.url} target="_blank" rel="noreferrer">{r.title} · {r.type}</a>)}</div></article></main>}

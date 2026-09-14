@@ -1,0 +1,15 @@
+import express from "express";
+import { security } from "./middleware/security.js";
+import auth from "./routes/auth.js";
+import payments from "./routes/payments.js";
+import content from "./routes/content.js";
+import dashboard from "./routes/dashboard.js";
+import { stripeWebhook } from "./controllers/paymentController.js";
+const app=express();
+app.use(...security);
+app.post("/api/payments/stripe/webhook",express.raw({type:"application/json"}),stripeWebhook);
+app.use(express.json({limit:"1mb"}));
+app.get("/api/health",(req,res)=>res.json({ok:true,name:"LearnSci API"}));
+app.use("/api/auth",auth);app.use("/api/payments",payments);app.use("/api",content);app.use("/api",dashboard);
+app.use((err,req,res,next)=>{console.error(err);res.status(500).json({message:"Internal server error"});});
+export default app;

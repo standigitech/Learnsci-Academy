@@ -1,0 +1,5 @@
+import { Link,useParams } from "react-router-dom";
+import { api } from "../services/api";
+import { useEffect,useState } from "react";
+import Paywall from "../components/Paywall";
+export default function Subject(){const {slug}=useParams();const [data,setData]=useState(null);useEffect(()=>{api.get(`/subjects/${slug}`).then(r=>setData(r.data));},[slug]);if(!data)return <main className="page">Loading…</main>;return <main className="page"><div className="page-title"><h1>{data.subject.name}</h1><p>{data.subject.description}</p></div><div className="topic-list">{data.topics.map(t=><section className="topic" key={t.id}><div><h2>{t.name}</h2><p>{t.description}</p></div><div className="lesson-list">{t.lessons.map(l=><Link to={`/lessons/${l.id}`} className="lesson-row" key={l.id}><div><strong>{l.title}</strong><small>{l.durationMinutes} min · {l.isPremium?"Premium":"Free teaser"}</small></div>{l.isPremium&&!data.hasActiveSubscription?<span className="locked">Locked</span>:<span>Open →</span>}</Link>)}</div></section>)}</div>{!data.hasActiveSubscription&&<Paywall/>}</main>}

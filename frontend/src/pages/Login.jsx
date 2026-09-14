@@ -1,0 +1,6 @@
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { authApi } from "../services/api";
+import { useAuth } from "../hooks/useAuth";
+import AuthLayout from "../layouts/AuthLayout";
+export default function Login(){const [email,setEmail]=useState("");const [password,setPassword]=useState("");const [error,setError]=useState("");const {login}=useAuth();const navigate=useNavigate();async function submit(e){e.preventDefault();try{const {data}=await authApi.login({email,password});login(data.token,data.user);navigate(data.user.role==="learner"&&!data.user.hasActiveSubscription?"/subscribe":"/dashboard");}catch(err){setError(err.response?.data?.message||"Invalid credentials");}}return <AuthLayout><h2>Welcome back</h2><p className="muted">Sign in to continue your learning journey.</p><form onSubmit={submit} className="form"><label>Email<input type="email" required value={email} onChange={e=>setEmail(e.target.value)}/></label><label>Password<input type="password" required value={password} onChange={e=>setPassword(e.target.value)}/></label>{error&&<div className="error">{error}</div>}<button className="btn primary full">Login</button></form><p className="auth-switch">No account? <Link to="/register">Create one</Link></p></AuthLayout>}

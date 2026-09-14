@@ -1,0 +1,3 @@
+import { Link, useLocation } from "react-router-dom";
+import { CheckCircle2, XCircle } from "lucide-react";
+export default function PaymentStatus({success=true}){const loc=useLocation();return <main className="status-page"><div className="status-card">{success?<CheckCircle2 className="success-icon" size={68}/>:<XCircle className="fail-icon" size={68}/>}<h1>{success?"Payment successful":"Payment failed"}</h1><p>{success?"Your LearnSci subscription is active. Premium learning is now unlocked.":"No subscription was activated. You can retry checkout safely."}</p><Link className="btn primary" to={success?(loc.state?.from||"/dashboard"):"/subscribe"}>{success?"Go to dashboard":"Retry payment"}</Link></div></main>}
