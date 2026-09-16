@@ -6,3 +6,5 @@ frontend/dist/
 backend/.env
 *.log
 .DS_Store
+.neon
+.env.local
