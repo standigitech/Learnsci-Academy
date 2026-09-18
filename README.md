@@ -106,3 +106,4 @@ Serve `frontend/dist` through a CDN/static host and deploy the Express API separ
 ## Architecture
 
 See `docs/API.md`, `docs/ARCHITECTURE.md`, `database/schema.sql`, and `database/seed/seed.js`.
+# LearnSci-Academy-Platform
