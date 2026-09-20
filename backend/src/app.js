@@ -6,6 +6,7 @@ import content from "./routes/content.js";
 import dashboard from "./routes/dashboard.js";
 import { stripeWebhook } from "./controllers/paymentController.js";
 const app=express();
+app.set("trust proxy", 1);
 app.use(...security);
 app.post("/api/payments/stripe/webhook",express.raw({type:"application/json"}),stripeWebhook);
 app.use(express.json({limit:"1mb"}));
